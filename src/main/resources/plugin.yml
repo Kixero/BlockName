@@ -1,0 +1,8 @@
+name: BlockName
+main: io.github.kixero.blockname.BlockName
+version: 1.0.0
+commands:
+  blockname:
+    description: Command to set the name of a block
+    usage: /blockname <name>
+    permission: blockname.setname
