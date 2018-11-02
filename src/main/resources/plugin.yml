@@ -3,6 +3,6 @@ main: io.github.kixero.blockname.BlockName
 version: 1.0.0
 commands:
   blockname:
-    description: Command to set the name of a block
-    usage: /blockname <name>
+    description: Command to set (or remove) the name of a block
+    usage: /blockname [remove] <name>
     permission: blockname.setname

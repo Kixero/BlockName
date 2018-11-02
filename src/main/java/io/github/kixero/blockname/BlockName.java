@@ -56,13 +56,14 @@ public final class BlockName extends JavaPlugin implements Listener
     {
         if (BOLD_TEXT)
         {
-            message = ChatColor.translateAlternateColorCodes('&', "&l" + message);
+            message = translateAlternateColorCodesBold('&', message);
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
         }
         else
         {
             message = ChatColor.translateAlternateColorCodes('&', message);
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
         }
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
     }
     
     public boolean onCommand(CommandSender sender, @NotNull Command cmd, String label, String[] args)
@@ -160,6 +161,52 @@ public final class BlockName extends JavaPlugin implements Listener
     private static String locToId(@NotNull Location loc)
     {
         return Integer.toString(loc.getBlockX()) + "0" + Integer.toString(loc.getBlockY()) + "0" + Integer.toString(loc.getBlockZ());
+    }
+    
+    /**
+     * Translates a string using an alternate color code character into a
+     * string that uses the internal ChatColor.COLOR_CODE color code
+     * character. The alternate color code character will only be replaced if
+     * it is immediately followed by 0-9, A-F, a-f, K-O, k-o, R or r.
+     *
+     * @param altColorChar The alternate color code character to replace. Ex: &
+     * @param textToTranslate Text containing the alternate color code character.
+     * @return Text containing the ChatColor.COLOR_CODE color code character.
+     */
+    private static String translateAlternateColorCodesBold(char altColorChar, String textToTranslate)
+    {
+        char[] b = textToTranslate.toCharArray();
+        
+        for (int i = 0; i < b.length - 1; i++)
+        {
+            if (b[i] == altColorChar && "0123456789AaBbCcDdEeFfKkLlMmNnOoRr".indexOf(b[i+1]) > -1)
+            {
+                b[i] = ChatColor.COLOR_CHAR;
+                b[i + 1] = Character.toLowerCase(b[i + 1]);
+                
+                b = insert(b, i + 2, ChatColor.COLOR_CHAR);
+                b = insert(b, i + 3, 'l');
+            }
+        }
+        b = insert(b, 0, ChatColor.COLOR_CHAR);
+        b = insert(b, 1, 'l');
+        
+        return new String(b);
+    }
+    
+    private static char[] insert(char[] a, int index, char c)
+    {
+        char[] result = new char[a.length + 1];
+        
+        for(int i = 0; i < index; i++)
+            result[i] = a[i];
+        
+        result[index] = c;
+        
+        for(int i = index + 1; i < a.length + 1; i++)
+            result[i] = a[i - 1];
+        
+        return result;
     }
     
     @EventHandler
