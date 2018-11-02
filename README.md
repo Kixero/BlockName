@@ -6,7 +6,7 @@ A simple Minecraft plugin to set a names to blocks and to display them in the pl
 
 The usage is really simple, to set or change a block's name just look at it and type the command : 
  
- `/blockname <Name>`
+ `/blockname <name>`
  
  To remove a block's name type this command while looking at the block :
  
