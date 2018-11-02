@@ -12,5 +12,9 @@ The usage is really simple, to set or change a block's name just look at it and 
  
  `/blockname remove`
  
+ ## Downloads
+ 
+ Check the `releases` folder for the latest file.
+ 
  
  You can send me a message if you find any bug or for new cool features to add.
