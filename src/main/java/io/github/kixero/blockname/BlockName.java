@@ -304,13 +304,11 @@ public final class BlockName extends JavaPlugin implements Listener
     {
         char[] result = new char[array.length + 1];
         
-        for(int i = 0; i < index; i++)
-            result[i] = array[i];
+        System.arraycopy(array, 0, result, 0, index);
         
         result[index] = c;
         
-        for(int i = index + 1; i < array.length + 1; i++)
-            result[i] = array[i - 1];
+        System.arraycopy(array, index, result, index + 1, array.length - index);
         
         return result;
     }
